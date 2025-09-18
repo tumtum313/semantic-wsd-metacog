@@ -19,3 +19,31 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+## 2. `baseline_wsd.py`
+```python
+# Baseline WSD (simplified Lesk-style)
+# Always picks the most frequent/default sense
+
+import json
+
+with open("data/sample_dataset.json") as f:
+    dataset = json.load(f)
+
+# Default frequent senses
+gloss_default = {
+    "field": "land area",
+    "organ": "body part",
+    "bass": "fish",
+    "mole": "animal",
+    "java": "programming language"
+}
+
+baseline_results = {}
+print("=== Baseline Assignments ===")
+for word, sentences in dataset.items():
+    senses = [gloss_default[word] for _ in sentences]
+    baseline_results[word] = senses
+    print(f"{word}: {senses}")
